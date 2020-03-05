@@ -1,6 +1,7 @@
 @import "materialize/components/color-variables";
 $primary-color: color("#ff5b03", "orange") !default;
 $secondary-color: #ff5b03;
+
 @import "materialize";
 
 .orders-wrapper {
@@ -218,16 +219,13 @@ a:active {
   padding: 2em;
 }
 .submitted {
-  background-color: rgb(30, 55, 212);
-}
-.pending {
-  background-color: #ff5b03;
+  background-color: rgb(30, 55, 212) !important;
 }
 .completed {
-  background-color: rgb(77, 21, 137);
+  background-color: rgb(77, 21, 137) !important;
 }
 .delivered {
-  background-color: rgb(23, 153, 33);
+  background-color: rgb(23, 153, 33) !important;
 }
 .canceled {
   background-color: rgb(223, 30, 30);

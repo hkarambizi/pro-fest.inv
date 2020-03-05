@@ -22,6 +22,21 @@ module OrderHelper
     ]
   end
 
+  def progress_bar_status(status)
+    case status
+    when 'submitted'
+      return "30"
+    when 'pending'
+      return "50"
+    when 'completed'
+      return "85"
+    when 'delivered'
+      return "100"
+    else
+      return "0"
+    end
+  end
+
   def crew_members(event)
     event.account.users.where(permission_level: 2)
   end

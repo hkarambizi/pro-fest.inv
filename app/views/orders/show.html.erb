@@ -14,6 +14,7 @@
 <div class="card center order-header">
     <h5> Order #<%= @order.id %> - <%= @order.role.capitalize() %> <span class="status <%= @order.status ? @order.status : "new" %>"><%= @order.status ? @order.status : "new" %></span></h5>
     <bold> Message: <%= @order.message %></bold>
+    <%= render 'progressbar', order: @order %>
 </div>
 <% if @order.transactions.length > 0 %>
 <div class="card">

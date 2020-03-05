@@ -23,7 +23,7 @@ class EventsController < ApplicationController
   # GET /events/1.json
   def show
     @locations = @event.locations.where(hidden: nil)
-    @pending_event_orders = @event.orders.select{|event| ["pending", "submitted"].include?(event.status)}
+    @pending_event_orders = @event.orders.select{|order| ["submitted"].include?(order.status) and order[:assigned_to] == nil}
   end
 
   # GET /events/new

@@ -2,14 +2,16 @@
 <h2>Event Orders</h2>
 <%= link_to 'Back', event_path(@event), class:'btn waves-effect waves-light' %>
 
-
   <% @locations.each do |l|  %>
 
     <% if l.orders.where(role: 'transfer').length > 0 %>
       <h4 class="center"><%= l.title %></h4>
       <hr>
       <div class="center">
-        <% l.orders.where(role: 'transfer').each do |o|%>
+        <% l.orders.where(role: 'transfer').sort_by { |o| [o.status] }.each do |o|%>
+
+        <%= render 'progressbar', order: o %>
+
           [<%= o.status %>] <%= link_to "Order ##{o.id}: #{o.message}", event_location_order_path(@event, o.location, o), class: 'center'%>
           <ul>
             <% o.transactions.each do |t| %>
