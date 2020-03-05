@@ -1,5 +1,5 @@
 <%= link_to 'Edit', edit_event_location_path(event_id: @location.event_id, id: @location.id), class: ' btn waves-effect waves-light' %>
-<%= link_to 'Back', event_path(@event), class: ' btn waves-effect waves-light' %>
+<%= link_to 'Back', event_locations_path(@event), class: ' btn waves-effect waves-light' %>
 
 <header><h4 class="display-4 center"><%= @location.title %></h4></header>
 <hr>
