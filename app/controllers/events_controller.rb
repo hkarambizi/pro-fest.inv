@@ -12,6 +12,7 @@ class EventsController < ApplicationController
 
   def events_by_customer
     @events = @customer.events
+    @pending_event_orders = @event.orders.select{|event| ["pending", "submitted"].include?(event.status)}
   end
 
   def new_customer_event
@@ -22,6 +23,7 @@ class EventsController < ApplicationController
   # GET /events/1.json
   def show
     @locations = @event.locations.where(hidden: nil)
+    @pending_event_orders = @event.orders.select{|event| ["pending", "submitted"].include?(event.status)}
   end
 
   # GET /events/new

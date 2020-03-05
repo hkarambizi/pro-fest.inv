@@ -5,11 +5,11 @@
 
   <div class="form_row">
       <%= f.label :role %>
-      <%= f.select(:role, options_for_select(order_types), :required => true) %>
+      <%= f.select(:role, ['transfer'], :required => true) %>
   </div>
 
 <div class="form_row">
-  <%= f.label :message %>
+  <%= f.label :message, "Memo" %>
   <%= f.text_field :message %>
   </div>
 

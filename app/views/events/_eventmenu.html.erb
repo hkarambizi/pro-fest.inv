@@ -1,3 +1,4 @@
+
 <div class="menu-buttons center">
 
 	<div class="tile-btn event-tile event-staff location-links">
@@ -8,7 +9,11 @@
 			<% end %>
 		</div>
 	</div>
+
 	<div class="tile-btn event-tile event-requests location-links">
+	<% if @pending_event_orders.length > 0%>
+<a class="btn-floating pulse waves-effect waves-light pink notification"><span><%= @pending_event_orders.length %></span></a>
+	<% end %>
 		<div class="button-image">
 			<%= link_to event_orders_path(@event) do %>
     			<%= image_tag 'https://png.pngtree.com/svg/20170817/cubes_1267087.png', class: 'image'%>

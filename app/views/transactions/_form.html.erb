@@ -14,12 +14,12 @@
   <% if @is_new %>
     <div class="form_row">
           <%= f.label :item_id %>
-          <%= f.select(:item_id, options_for_select(@items.map{|item|[item.product.name, item.id]}), :include_blank => true, :required => true) %>
+          <%= f.select(:item_id, options_for_select(Product.all.map{|product|[product.name, product.id]}), :include_blank => true, :required => true) %>
     </div>
   <% else %>
     <div class="form_row">
           <%= f.label :item_id %>
-          <%= f.select(:item_id, options_for_select(@items.map{|item|[item.product.name, item.id]}, [@transaction.item.product.name, @transaction.item.id]), :selected => f.object.item_id, :required => true) %>
+          <%= f.select(:item_id, options_for_select(Product.all.map{|product|[product.name, product.id]}, [@transaction.item.product.name, @transaction.item.product_id]), :selected => f.object.item_id, :required => true) %>
     </div>
   <% end %>
 
@@ -28,48 +28,7 @@
       <%= f.number_field :qty %>
     </div>
 
-  <% if @transaction.origin_id %>
-    <div class="form_row">
-        <%= f.label :origin_id, 'From Location' %>
-        <%= f.select(:origin_id, options_for_select(@locations.where(hidden: nil).map{|location|[location.title, location.id]}, [@locations.find(@transaction.origin_id), @transaction.origin_id]))%>
-    </div>
-  <% else %>
-    <div class="form_row">
-          <%= f.label :origin_id, 'From Location' %>
-          <%= f.select(:origin_id, options_for_select(@locations.where(hidden: nil).map{|location|[location.title, location.id]}), :include_blank => true)%>
-    </div>
-  <% end %>
+  <button class='btn' action='<%= f.submit  %>'>Submit</button>
 
-  <% if @transaction.dest_id %>
-    <div class="form_row">
-          <%= f.label :dest_id, 'To Location'  %>
-          <%= f.select(:dest_id, options_for_select(@locations.where(hidden: nil).map{|location|[location.title, location.id]}, [@locations.find(@transaction.dest_id), @transaction.dest_id]))%>
-    </div>
-  <% else %>
-    <div class="form_row">
-          <%= f.label :dest_id, 'To Location'  %>
-          <%= f.select(:dest_id, options_for_select(@locations.where(hidden: nil).map{|location|[location.title, location.id]}), :include_blank => true)%>
-    </div>
-  <% end %>
-
-  <% if @transaction.dest_id %>
-      <div class="form_row">
-          <%= f.label :status %>
-          <%= f.select(:status, options_for_select(["pending", "in_progress"], @transaction.status), :required => true) %>
-      </div>
-  <% else %>
-      <div class="form_row">
-          <%= f.label :status %>
-          <%= f.select(:status, options_for_select(["pending", "in_progress"]), :required => true) %>
-      </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>
-<script>
-$(document).ready(function() {
- $('select').formSelect();
-});
-</script>
+

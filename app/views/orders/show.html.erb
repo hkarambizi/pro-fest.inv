@@ -1,7 +1,7 @@
 <h5 class="display-2 center">Location: <%= @location.title %></h5>
 <header>
   <% if @can_edit %>
-    <%= link_to 'Add Transaction', new_event_location_order_transaction_path(order_id: @order.id), class: 'center btn waves-effect waves-light' %>
+    <%= link_to 'Request New Item', new_event_location_order_transaction_path(order_id: @order.id), class: 'center btn waves-effect waves-light' %>
     <%= link_to 'Edit Order', edit_event_location_order_path(id: @order.id), class: 'center btn waves-effect waves-light' %>
   <%end%>
  <%= link_to 'Back To Location', event_location_path(event_id: @location.event_id, id: @location), class: 'right btn waves-effect waves-light' %>
@@ -34,7 +34,7 @@
       <tr>
         <td><%= transaction.id %></td>
 
-        <td><%= transaction.status %></td>
+        <td><span class="status <%= transaction.status %>"><%= transaction.status %></span></td>
 
         <td colspan="3"><%= link_to transaction.item.product.name, event_location_order_transaction_path(@event, @location, @order, transaction) %></td>
 

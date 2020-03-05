@@ -39,13 +39,14 @@ class TransactionsController < ApplicationController
     # POST /transactions
     # POST /transactions.json
     def create
+        @is_new = true
         @locations = @event.locations
         @transaction = @order.transactions.new(transaction_params)
 
       respond_to do |format|
-        if @transaction.save
+        if @transaction.save!
           back_to_pending(@transaction)
-          format.html { redirect_to event_location_order_transaction_path(event_id: @event.id, order_id: @order.id, id: @transaction.id), notice: 'Transaction was successfully added to Order.' }
+          format.html { redirect_to event_location_order_path(@event, @location, @order), notice: 'Transaction was successfully added to Order.' }
           format.json { render :show, status: :created, location: @transaction }
         else
           format.html { render :new }
@@ -86,7 +87,7 @@ class TransactionsController < ApplicationController
         if @transaction.update_attributes(transaction_params)
           back_to_pending(@transaction)
           create_transaction_message(@transaction, "transaction_updated")
-          format.html { redirect_to event_location_order_transaction_path(event_id: @event.id, order_id: @order.id, id: @transaction.id), notice: 'Transaction was successfully updated.' }
+          format.html { redirect_to event_location_order_path(@event, @location, @order), notice: 'Transaction was successfully updated.' }
           format.json { render :show, status: :ok, location: @transaction }
         else
           format.html { render :edit }
@@ -143,10 +144,15 @@ class TransactionsController < ApplicationController
         create_transaction_message(transaction, "order_pending")
       end
 
+      def find_or_create_item(location, item_id)
+        return location.items.find_or_create_by!(product_id: item_id, quantity: 0)
+      end
+
       # Never trust parameters from the scary internet, only allow the white list through.
       def transaction_params
+        item = find_or_create_item(@location, params[:transaction][:item_id])
         return params.require(:transaction)
         .permit(:item_id, :dest_id, :origin_id, :status, :qty)
-        .merge(order_id: @order.id)
+        .merge(order_id: @order.id, item_id: item.id, dest_id: item.location.id, status: 'pending')
       end
 end

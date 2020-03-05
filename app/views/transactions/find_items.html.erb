@@ -1,11 +1,11 @@
 <p id="notice"><%= notice %></p>
 
-<h4>Find Items</h4>
+<h4>Find <%= @transaction.item.product.name %> for Order: <%= @transaction.order_id %></h4>
 
-<%= link_to 'Back', event_location_order_path(@event, @location, @order), class: 'center btn-large waves-effect waves-light' %>
+<%= link_to 'Back', event_location_order_path(@event, @location, @order), class: 'center btn waves-effect waves-light' %>
 
 
-<table>
+<table class="centered highlight">
   <thead>
       <tr>
         <th>Location</th>
@@ -18,7 +18,7 @@
     </thead>
 
   <tbody>
-    <% @matching_items.each do |item| %>
+    <% @matching_items.select {|i| i.location[:hidden] != true}.each do |item| %>
    <%  if (item.quantity - @transaction.qty > 0) and (item.location_id != @order.location_id) %>
       <tr>
         <td><%= item.location.title %></td>
@@ -27,13 +27,17 @@
         <td><%= @reserved = @pending_transactions.select {|t| t[:origin_id] === item.location_id}.reduce(0) {|sum, i| sum + i[:qty]} %></td>
         <td><%= @available = item.quantity - @reserved %></td>
         <td>
-        x
         <% if @available > @transaction.qty %>
           <%= link_to 'Reserve', item_reserve_path(@location, @order, @transaction, item), class: 'center btn-danger waves-effect waves-light' %>
         <%end%>
         </td>
       </tr>
-      <%end%>
+      <% end %>
+      <tr>
+      <td colspan="6">
+      <p> 0 available at <%= link_to item.location.title, event_location_path(item.location.event, item.location) %></p>
+      </td>
+      </tr>
     <% end %>
   </tbody>
 </table>

@@ -1,7 +1,7 @@
-<h4>Editing Location</h4>
+<%= link_to 'Back To Location', event_location_path(@event, @location), class: 'btn waves-effect waves-light right' %>
+<h4>Editing Location: <%= @location.title %></h4>
 
 <%= render 'form', location: @location %>
 
-<%= link_to 'Show', event_location_path(@event, @location) %> |
-<%= link_to 'Back To Event', event_location_path(@event, @location) %> |
-<%= link_to 'Destroy', event_location_path(@event, @location), method: :delete, data: { confirm: 'Are you sure?' } %>
+
+<%= link_to 'Destroy', event_location_path(@event, @location), class: 'btn waves-effect waves-light right' , method: :delete, data: { confirm: 'Are you sure?' } %>

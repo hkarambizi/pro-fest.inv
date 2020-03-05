@@ -39,9 +39,10 @@ $secondary-color: #ff5b03;
 .row .col {
   padding: 0;
 }
-
-.btn {
-  border-radius: 0;
+.notification {
+  position: relative;
+  top: -2.9em;
+  left: 8em;
 }
 
 .modal {
@@ -241,6 +242,9 @@ a:active {
 }
 .pending {
   background-color: #ff5b03;
+}
+.in_progress {
+  background-color: rgb(30, 82, 212);
 }
 .new {
   background-color: #ffb400;
