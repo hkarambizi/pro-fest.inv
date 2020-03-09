@@ -45,7 +45,7 @@ class TransactionsController < ApplicationController
 
       respond_to do |format|
         if @transaction.save!
-          back_to_pending(@transaction)
+
           format.html { redirect_to event_location_order_path(@event, @location, @order), notice: 'Transaction was successfully added to Order.' }
           format.json { render :show, status: :created, location: @transaction }
         else
@@ -85,7 +85,7 @@ class TransactionsController < ApplicationController
 
       respond_to do |format|
         if @transaction.update_attributes(transaction_params)
-          back_to_pending(@transaction)
+
           create_transaction_message(@transaction, "transaction_updated")
           format.html { redirect_to event_location_order_path(@event, @location, @order), notice: 'Transaction was successfully updated.' }
           format.json { render :show, status: :ok, location: @transaction }

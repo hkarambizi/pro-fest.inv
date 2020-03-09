@@ -59,7 +59,7 @@ class OrdersController < ApplicationController
     @order = @location.orders.find(params[:id])
     @transactions = @order.transactions
     @canceled = @order.status == "canceled"
-    @can_edit = !["delivered", "completed", "canceled"].include?(@order.status)
+    @can_edit = !["delivered", "completed", "canceled", "submitted", "pending"].include?(@order.status)
     @can_submit = @order.transactions.length > 0 && @order.status == nil
     @no_confirm = invalid_transactions || @canceled || @order.status == 'delivered'
     puts "can confirm: #{@no_confirm}"
