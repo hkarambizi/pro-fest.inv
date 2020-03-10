@@ -24,6 +24,8 @@ module OrderHelper
 
   def progress_bar_status(status)
     case status
+    when 'new'
+      return "5"
     when 'submitted'
       return "30"
     when 'pending'
@@ -32,8 +34,10 @@ module OrderHelper
       return "85"
     when 'delivered'
       return "100"
+    when 'canceled'
+      return "100"
     else
-      return "0"
+      return "5"
     end
   end
 

@@ -4,7 +4,7 @@
     <%= link_to 'Request New Item', new_event_location_order_transaction_path(order_id: @order.id), class: 'center btn waves-effect waves-light' %>
     <%= link_to 'Edit Order', edit_event_location_order_path(id: @order.id), class: 'center btn waves-effect waves-light' %>
   <%end%>
- <%= link_to 'Back To Location', event_location_path(event_id: @location.event_id, id: @location), class: 'right btn waves-effect waves-light' %>
+ <%= link_to 'Back To Orders', location_orders_path(event_id: @location.event_id, location_id: @location), class: 'right btn waves-effect waves-light' %>
 </header>
 
 <% if @can_submit %>

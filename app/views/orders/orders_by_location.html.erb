@@ -3,26 +3,10 @@
 
 <%= link_to 'Back To Location', event_location_path(event_id: @location.event_id, id: @location), class: 'center btn waves-effect waves-light' %>
 
-<div class ='orders-wrapper'>
-  <table class = 'centered'>
-    <thead>
-      <tr>
-        <th>Order Type</th>
-        <th>Memo</th>
-        <th>Status</th>
-        <th colspan="3">Progress</th>
-      </tr>
-    </thead>
 
-    <tbody>
-      <% @orders.each do |order|  %>
-        <tr>
-          <td><%=order.role%></td>
-          <td><%=link_to order.message, event_location_order_path(event_id: @location.event_id, location_id: @location.id, id: order.id)%></td>
-          <td><%= order.status %></td>
-          <td><%=render 'progressbar', order: order %></td>
-        </tr>
-        <% end %>
-    </tbody>
+
+
+  <table class='centered'>
+    <%= render 'locationorders', orders: @orders %>
   </table>
-</div>
+
