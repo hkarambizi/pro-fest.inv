@@ -1,0 +1,37 @@
+    <div class="card">
+         <div class="header">
+          <span class="header status order-status <%= order.status ? order.status : "new" %>"><%= order.status ? order.status : "new" %></span>
+            <%=render 'orderitems', order: order %>
+            </div>
+      <div class="captions">
+        <p class="num">Order: <%= order.id %></p>
+
+        <p class="message">
+        <%= link_to "Order ##{order.id}: #{order.message}", event_location_order_path(@event, order.location, order), class: 'center'%>
+        </p>
+            <%= render 'progressbar', order: order %>
+          <ul>
+            <% order.transactions.each do |t| %>
+              <li>
+                <%= t.qty %> x <%= t.item.product.name %>
+              </li>
+            <% end %>
+          </ul>
+          <% if order.assigned_to == nil %>
+            <%= render 'assign', order: order %>
+          <% else %>
+          <strong>Assigned to: <%= @users.find(order.assigned_to).first_name %></strong>
+          <% end %>
+        </div>
+    </div>
+<style>
+.status {
+    color: white;
+    float: left;
+    padding: .5em;
+    border-radius: 5%;
+    font-size: 1em;
+    vertical-align: super;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+</style>

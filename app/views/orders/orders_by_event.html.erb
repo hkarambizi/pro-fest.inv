@@ -1,38 +1,98 @@
 
-<h2>Event Orders</h2>
-<%= link_to 'Back', event_path(@event), class:'btn waves-effect waves-light' %>
+<h2 class="center"><%= @event.title %> Orders</h2>
 
+<%= link_to 'Back', event_path(@event), class:'btn waves-effect waves-light' %>
+<div class="center highlighted">
   <% @locations.each do |l|  %>
 
     <% if l.orders.where(role: 'transfer').length > 0 %>
-      <h4 class="center"><%= l.title %></h4>
-      <hr>
-      <div class="center">
-        <% l.orders.where(role: 'transfer').sort_by { |o| [o.status] }.each do |o|%>
+      <h4 class="center loc-title"><%= l.title %></h4>
 
-        <%= render 'progressbar', order: o %>
-
-          [<%= o.status %>] <%= link_to "Order ##{o.id}: #{o.message}", event_location_order_path(@event, o.location, o), class: 'center'%>
-          <ul>
-            <% o.transactions.each do |t| %>
-              <li>
-                <%= t.qty %> x <%= t.item.product.name %>
-              </li>
-            <% end %>
-          </ul>
-
-        <% if o.assigned_to == nil %>
-          <%= render 'assign', order: o %>
-          <% else%>
-          <strong>Assigned to: <%= @users.find(o.assigned_to).first_name %></strong>
-          <% end %>
-          <hr>
+      <div class="cards-list center">
+        <% l.orders.where(role: 'transfer').sort_by { |o| [o.role] }.each do |o|%>
+          <%= render 'eventorder', order: o %>
         <% end %>
-        </div>
+      </div>
 
     <% else%>
-      <h6 class="center"> No Open Requests for <%= l.title %></h6>
+      <h6 class="center empty-msg"> No Open Requests for <%= l.title %></h6>
     <% end %>
-
+  <hr>
   <% end %>
 
+<style>
+.middle {
+  padding: 10% 0;
+}
+.btn-container {
+}
+.right {
+    float: right;
+    height: 4em;
+    width: 4em;
+    vertical-align: middle;
+    border-radius: 50%;
+    box-shadow: 0.1em 0.1em 3px gray;
+}
+.loc-title {
+  padding: 1em;
+  text-shadow: 0.04em 0.02em 0em #d1c0b7;
+}
+.empty-msg {
+  margin: 2em;
+  font-weight: bold;
+}
+.options {
+  color: white;
+  background-color: maroon;
+  font-size: 1em;
+  padding: 1em;
+  border: none;
+  box-shadow: 0.1em 0.1em 0.5em black;
+}
+.options:hover {
+  background-color: white;
+  color: black;
+}
+.captions {
+  text-align: center;
+  margin: 0 auto;
+  padding: 1em;
+}
+.num {
+  font-size: 3%;
+  font-weight: bold;
+}
+.card {
+  width: 40%;
+  color: black;
+  background-color: #fff9f6;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 1em;
+  box-shadow: 0.1em 0.1em 0.5em black;
+  font-family: helvetica;
+}
+.product-img {
+  width: 100%;
+}
+.card:hover {
+  box-shadow: 0.2em 0.2em 0.5em black;
+}
+
+.cards-list {
+  display: flex;
+  justify-content: flex-start;
+  align-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 0 auto;
+}
+.content {
+  width: 60%;
+  background-color: #39edc0;
+  margin: 0 auto;
+  height: 100vh;
+}
+
+</style>
