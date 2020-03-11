@@ -4,9 +4,7 @@
 <div class="order">
 <%=render 'progressbar', order: order %>
     <div class="header">
-         <% order.transactions.each do |t| %>
-            <img src="<%= t.item.product.image_url %>" class="right">
-        <% end %>
+         <%=render 'orderitems', order: order %>
       <span class="order-id"> <%= order.id %> </span>
     <span class="header status order-status <%= order.status ? order.status : "new" %>"><%= order.status ? order.status : "new" %></span>
       </div>
