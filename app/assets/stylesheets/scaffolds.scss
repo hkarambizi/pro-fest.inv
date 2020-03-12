@@ -21,7 +21,14 @@ td {
   width: 500px;
   background: #fcf7f8;
 }
-
+.menu-buttons {
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
 pre {
   background-color: #eee;
   padding: 10px;
