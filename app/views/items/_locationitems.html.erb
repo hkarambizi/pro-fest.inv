@@ -1,0 +1,21 @@
+<table class="centered highlight">
+  <thead>
+      <tr>
+        <th>Quantity</th>
+        <th>Item Name</th>
+        <th></th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+  <tbody>
+    <% items.each do |item| %>
+      <tr>
+        <td><%= item.quantity %></td>
+        <td><%= Product.find(item.product_id).name %></td>
+        <td><img src='<%= Product.find(item.product_id).image_url %>'></td>
+        <td colspan="3"><%= render 'itemactions', item: item %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

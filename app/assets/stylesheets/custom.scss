@@ -182,7 +182,7 @@ a:active {
   color: black;
 }
 .poster {
-  align: center;
+  align-content: center;
   justify-content: center;
 }
 .title {
@@ -228,7 +228,7 @@ a:active {
   background-color: rgb(23, 153, 33) !important;
 }
 .canceled {
-  background-color: rgb(223, 30, 30);
+  background-color: rgb(223, 30, 30) !important;
 }
 .status {
   color: white;

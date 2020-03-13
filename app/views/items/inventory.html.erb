@@ -3,32 +3,41 @@
 <h4><%= @location.title %> Inventory</h4>
 
 <%= link_to 'Back To Location', event_location_path(event_id: @location.event_id, id: @location), class: 'left btn waves-effect waves-light' %>
+<%= link_to 'New Item', new_location_item_path, class: 'right btn waves-effect waves-light' %>
+
 <% if @pickup_orders.length > 0%>
 <%= link_to 'Pickup Order', order_pickup_path(@location.event, @location), class: 'right btn waves-effect waves-light' %>
 <%end%>
 <% if @dropoff_orders.length > 0%>
 <%= link_to 'Drop-off Order', order_dropoff_path(@location.event, @location), class: 'right btn waves-effect waves-light' %>
 <%end%>
-<table class="centered highlight">
-  <thead>
-      <tr>
-        <th>Quantity</th>
-        <th colspan="2">Item Name</th>
-        <th></th>
-      </tr>
-    </thead>
-
-  <tbody>
-    <% @items.each do |item| %>
-      <tr>
-        <td><%= item.quantity %></td>
-        <td colspan="2"><%= Product.find(item.product_id).name %></td>
-        <td><img src='<%= Product.find(item.product_id).image_url %>'></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="column-container">
+  <%= render 'locationitems', items: @items %>
+</div>
 
 <br>
 
-<%= link_to 'New Item', new_location_item_path, class: 'left btn waves-effect waves-light' %>
+
+<style>
+.column-container {
+  width: 100%;
+  max-height: 100%;
+  margin: auto;
+  display:inline-block;
+}
+.column-left {
+  width: 25%;
+  height: 100%;
+  float: left;
+  padding-top: 5em;
+}
+.column-right {
+  margin-left: 30%;
+ width: 70%;
+ height: 100%;
+}
+.column-container * table {
+  max-width: 100%;
+  max-height: 100%;
+}
+</style>

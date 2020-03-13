@@ -77,6 +77,7 @@ class EventsController < ApplicationController
         @event.locations.new(title: 'Truck', latitude: @event.latitude, longitude: @event.longitude, event_id: @event.id, loc_type: 'truck').save
         @event.locations.new(title: 'sales', latitude: @event.latitude, longitude: @event.longitude, event_id: @event.id, loc_type: 'sales', hidden: true).save
         @event.locations.new(title: 'waste', latitude: @event.latitude, longitude: @event.longitude, event_id: @event.id, loc_type: 'waste', hidden: true).save
+        @event.locations.new(title: 'surplus', latitude: @event.latitude, longitude: @event.longitude, event_id: @event.id, loc_type: 'surplus', hidden: true).save
         @event.locations.new(title: 'comps', latitude: @event.latitude, longitude: @event.longitude, event_id: @event.id, loc_type: 'comps', hidden: true).save
       else
         format.html { render :new }

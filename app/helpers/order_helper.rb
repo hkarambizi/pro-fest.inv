@@ -27,13 +27,13 @@ module OrderHelper
     when 'new'
       return "5"
     when 'submitted'
-      return "30"
+      return "25"
     when 'pending'
       return "50"
     when 'completed'
       return "85"
     when 'delivered'
-      return "100"
+      return "90"
     when 'canceled'
       return "100"
     else
@@ -89,6 +89,7 @@ module OrderHelper
     truck_location = get_loc_by_type('truck', event_locations)
     comps_location = get_loc_by_type('comps', event_locations)
     waste_location = get_loc_by_type('waste', event_locations)
+    surplus_location = get_loc_by_type('surplus', event_locations)
     case transaction.order.role
     when 'transfer'
       @origin = event_locations.find(transaction.origin_id)
@@ -111,6 +112,9 @@ module OrderHelper
     when 'comp'
       @origin = transaction.order.location
       @destination = find_item_match(comps_location, transaction).location
+    when 'surplus'
+      @origin = transaction.order.location
+      @destination = find_item_match(surplus_location, transaction).location
     else
       return
     end
@@ -151,6 +155,7 @@ def format_order(order)
   when 'load_in'
   when 'load_out'
   when 'comp', 'damage', 'spill', 'return'
+  when 'surplus'
   end
   return info
 end
@@ -178,6 +183,8 @@ def format_transaction(transaction)
     transaction_message += "removed from inventory due to a comp reported by #{user_data(transaction.order.created_by)[:full_name]}"
   when 'void'
     transaction_message += "returned to inventory because of an error"
+  when 'surplus'
+    transaction_message += "recorded as a surplus item"
   end
   return transaction_message
 end
